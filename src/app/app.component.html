@@ -1,0 +1,110 @@
+<div class="ui visible inverted left vertical sidebar menu overlay">
+    <div class="item">
+        <a class="ui image icon" style="margin-right: 1em;" href="/">
+            <img class="logo" src="assets/logo.png" />
+        </a>
+        <a><b>Wirehome.Configurator</b></a>
+    </div>
+
+    <a class="item">
+        <i class="fas fa-tachometer-alt icon"></i>
+        Dashboard
+    </a>
+
+    <a class="item">
+        <i class="fas fa-cogs icon"></i>
+        Services
+    </a>
+
+    <a class="item" routerLink="/components" routerLinkActive="active">
+        <i class="fas fa-th-large icon"></i>
+        Components
+    </a>
+
+    <a class="item">
+        <i class="fas fa-th icon"></i>
+        Component groups
+    </a>
+
+    <a class="item">
+        <i class="fas   fa-chart-area icon"></i>
+        History
+    </a>
+
+    <a class="item">
+        <i class="fas fa-boxes icon"></i>
+        Packages
+    </a>
+
+    <a class="item">
+        <i class="fas fa-cloud icon"></i>
+        Cloud
+    </a>
+
+    <a class="item" routerLink="/global-variables" routerLinkActive="active">
+        <i class="fas fa-globe icon"></i>
+        Global variables
+    </a>
+
+    <a class="item">
+        <i class="fas fa-mobile icon"></i>
+        App
+    </a>
+
+    <a class="item" routerLink="/system" routerLinkActive="active">
+        <i class="fas fa-info icon"></i>
+        System
+    </a>
+
+    <a class="item">
+        <i class="fas fa-sticky-note icon"></i>
+        Notes
+    </a>
+
+    <a class="item">
+        <i class="fas fa-save icon"></i>
+        Backups
+    </a>
+
+    <a class="item" routerLink="/log" routerLinkActive="active">
+        <i class="fas fa-question-circle icon"></i>
+        Log
+    </a>
+
+    <a class="item" href="http://localhost:80/app/" target="_blank">
+        <i class="fas fa-mobile icon"></i>
+        Open app...
+    </a>
+
+    <a class="item" href="https://wirehomecloud.azurewebsites.net/Cloud/Account" target="_blank">
+        <i class="fas fa-cloud icon"></i>
+        Open Wirehome.Cloud...
+    </a>
+
+    <a class="item" href="http://localhost:80/api/" target="_blank">
+        <i class="fas fa-code icon"></i>
+        Open HTTP API reference...
+    </a>
+
+    <a class="item" href="https://github.com/chkr1011/Wirehome.Core" target="_blank">
+        <i class="fas fa-home icon"></i>
+        Open homepage...
+    </a>
+
+    <a class="item" href="https://github.com/chkr1011/Wirehome.Core/issues/new" target="_blank">
+        <i class="fas fa-bug icon"></i>
+        Report problem...
+    </a>
+
+    <a class="item ui label" href="3rdpartylicenses.txt" target="_blank">
+        3rd Party licenses
+    </a>
+
+    <div class="item ui label">
+        Version: 1.0.0
+    </div>
+</div>
+
+<div style="margin-left: 260px;">
+    <router-outlet></router-outlet>
+</div>

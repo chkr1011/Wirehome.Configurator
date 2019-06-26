@@ -1,0 +1,124 @@
+<div class="ui page container left-container">
+    <h1 class="ui header dividing">Global variables</h1>
+    <p class="message ui">The following table shows all currently available global variables in Wirehome.Core. They
+        contain
+        data which is shared across the whole system including components, services etc. The items are stored in the
+        filesystem so that they will be restored when the system restarts.</p>
+    <div>
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th class="collapsing">UID</th>
+                    <th>Value</th>
+                    <th class="collapsing">Type</th>
+                    <th class="collapsing">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of globalVariableItems">
+                    <td class="code">{{item.uid}}</td>
+                    <td class="code">{{item.value}}</td>
+                    <td class="code">{{typeToString(item.type)}}</td>
+                    <td>
+                        <div class="ui buttons">
+                            <button class="ui button compact" (click)=editGlobalVariable(item)>Edit</button>
+                            <button class="ui red button compact" (click)=deleteGlobalVariable(item)>Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="ui button" (click)="updateGlobalVariables()">Refresh</button>
+    </div>
+
+    <h1 class="ui header dividing">Updating global variables</h1>
+    <div class="ui container left-container">
+        <p class="message ui">The values of all global variables can be changed. Also new global variables can be added
+            at
+            runtime. It is recommended to check the used type first and match that type when setting new values.
+            Otherwise
+            the
+            consuming components, services etc. may fail when reading variables with an unexpected type.</p>
+
+        <div class="ui segment">
+            <div class="ui form">
+                <div class="field">
+                    <label>UID</label>
+                    <input type="text" class="code" placeholder="UID" [(ngModel)]="editorUid">
+                </div>
+
+                <div class=field>
+                    <label>Type</label>
+                    <div class="inline fields">
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="type" [(ngModel)]="editorType"
+                                    [checked]="editorType==globalVariableTypes.String"
+                                    [value]="globalVariableTypes.String">
+                                <label class="code">string</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="type" [(ngModel)]="editorType"
+                                    [checked]="editorType==globalVariableTypes.Number"
+                                    [value]="globalVariableTypes.Number">
+                                <label class="code">number</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="type" [(ngModel)]="editorType"
+                                    [checked]="editorType==globalVariableTypes.Boolean"
+                                    [value]="globalVariableTypes.Boolean">
+                                <label class="code">boolean</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="type" [(ngModel)]="editorType"
+                                    [checked]="editorType==globalVariableTypes.Null" [value]="globalVariableTypes.Null">
+                                <label class="code">null</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field" *ngIf="editorType==globalVariableTypes.String">
+                    <label>Value</label>
+                    <input type="text" placeholder="Text" class="code" [(ngModel)]="editorStringValue">
+                </div>
+
+                <div class="field" *ngIf="editorType==globalVariableTypes.Number">
+                    <label>Value</label>
+                    <input type="number" placeholder="Number" [(ngModel)]="editorNumberValue">
+                </div>
+
+                <div class=field *ngIf="editorType==globalVariableTypes.Boolean">
+                    <label>Value</label>
+                    <div class="inline fields">
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="booleanValue" [(ngModel)]="editorBooleanValue"
+                                    [checked]="editorBooleanValue==true" [value]="true">
+                                <label class="code">true</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="booleanValue" [(ngModel)]="editorBooleanValue"
+                                    [checked]="editorBooleanValue==false" [value]="false">
+                                <label class="code">false</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <button class="ui button teal" (click)="postGlobalVariable()">Update global variable</button>
+        </div>
+    </div>
+</div>

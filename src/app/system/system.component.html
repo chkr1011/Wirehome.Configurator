@@ -1,0 +1,87 @@
+<div class="ui page container left-container">
+    <h1 class="ui header dividing">System settings</h1>
+    <div class="ui segment">
+        <div class="ui form">
+            <div class="field">
+                <label>Language code</label>
+                <input type="text" class="code" placeholder="en" [(ngModel)]="systemSettingsModel.languageCode">
+            </div>
+            <div class=field>
+                <label>Units</label>
+                <div class="inline fields">
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="booleanValue" [(ngModel)]="systemSettingsModel.units"
+                                [checked]="systemSettingsModel.units=='metric'" [value]="'metric'">
+                            <label class="code">Metric</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="booleanValue" [(ngModel)]="systemSettingsModel.units"
+                                [checked]="systemSettingsModel.units=='imperial'" [value]="'imperial'">
+                            <label class="code">Imperial</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="ui header dividing">System status</h1>
+    <p class="message ui">The following table shows system status values of Wirehome.Core. They provide useful
+        information
+        about the current health state.</p>
+
+    <table class="ui celled table">
+        <thead>
+            <tr>
+                <th>UID</th>
+                <th>Value</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of systemStatusItems">
+                <td class="code collapsing">{{item.uid}}</td>
+                <td class="code">{{item.value}}</td>
+                <td class="code collapsing">{{item.type}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="ui button" (click)="updateSystemStatus()">Refresh</button>
+
+    <h1 class="ui header dividing">System operations</h1>
+    <p class="segment ui">The following operations are allowing maintenance of Wirehome.Core.</p>
+    <button class="ui red button">Reboot</button>
+    <button [class.loading]="isPerformingPing==true" class="ui button teal" (click)="performPing()">Ping</button>
+
+    <h1 class="ui header dividing">System setup</h1>
+    <p class="segment ui">Wirehome.Core comes without any packages, components, apps etc. So a initial setup is
+        required. This can be also used to update the official apps.</p>
+
+    <div class="ui segment">
+        <div class="ui form">
+            <div class="field">
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" [(ngModel)]="systemSetupModel.fixStartupScripts">
+                    <label>Fix startup scripts according to line endings of the hosting OS.</label>
+                </div>
+            </div>
+            <div class="field">
+                <label>App package UID</label>
+                <input type="text" class="code" [(ngModel)]="systemSetupModel.appPackageUid"
+                    placeholder="wirehome.app@1.0.0">
+            </div>
+            <div class="field">
+                <label>App package UID</label>
+                <input type="text" class="code" [(ngModel)]="systemSetupModel.configuratorPackageUid"
+                    placeholder="wirehome.configurator@1.0.0">
+            </div>
+        </div>
+    </div>
+
+    <button [class.loading]="isPerformingSystemSetup==true" class="ui button teal"
+        (click)="performSystemSetup()">Perform system setup</button>
+</div>

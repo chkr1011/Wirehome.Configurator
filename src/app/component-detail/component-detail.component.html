@@ -1,0 +1,192 @@
+<div class="ui segment">
+
+    <div class="ui form  fluid accordion blabla">
+        <div class="active title">
+            <h3 class="ui dividing header"><i class="fas fa-sliders-h icon"></i>Basic</h3>
+        </div>
+        <div class="active content extended-content">
+            <div class="ui">
+                <div class="field">
+                    <label>UID</label>
+                    <input type="text" class="code" placeholder="UID" [(ngModel)]="configuration.uid">
+                    <div class="ui message small yellow">
+                        <p>The UID must be unique across the entire system. That means that for example
+                            every lamp needs its own UID even if they are located in different rooms.</p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Description</label>
+                    <input type="text" class="code" placeholder="My lamp from vendor x in room y."
+                        [(ngModel)]="configuration.description">
+                </div>
+
+                <div class="field">
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" [(ngModel)]="configuration.isEnabled">
+                        <label>Enabled</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title">
+            <h3 class="ui dividing header"><i class="fas fa-mobile icon"></i>App</h3>
+        </div>
+        <div class="content extended-content">
+            <div class="ui">
+                <div class="field">
+                    <label>Default caption</label>
+                    <input type="text" class="code" placeholder="My lamp" [(ngModel)]="configuration.appCaption">
+                    <div class="ui message small">
+                        <p>The default caption is used whenever no other caption is available. Other captions are coming
+                            from
+                            assignments between components and component groups.</p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Default image</label>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>ID</label>
+                            <input type="text" class="code" placeholder="fas fa-box"
+                                [(ngModel)]="configuration.appImageId">
+                        </div>
+                        <div class="field">
+                            <label>Color</label>
+                            <input type="text" class="code" placeholder="#FFFFFF"
+                                [(ngModel)]="configuration.appImageColor">
+                        </div>
+                    </div>
+
+                    <div class="ui message small">
+                        <p>The icons are used from FontAwesome. So the ID is the official class of a particular icon
+                            like
+                            'fas
+                            fa-box'. The default image ID is used whenever no other image ID is available. Other image
+                            IDs
+                            are
+                            coming from
+                            assignments between components and component groups.</p>
+                    </div>
+
+                    <label>Preview</label>
+                    <div class="ui message">
+                        <span class="ui icon" [(ngClass)]="configuration.appImageId"
+                            [style.color]="configuration.appImageColor"></span><span>{{configuration.appCaption}}</span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Default position index</label>
+                    <input type="number" class="code" placeholder="Position index"
+                        [(ngModel)]="configuration.appPositionIndex">
+                </div>
+            </div>
+        </div>
+
+        <div class="title">
+            <h3 class="ui dividing header"><span class="fas fa-cogs icon"></span>Logic</h3>
+        </div>
+        <div class="content extended-content">
+            <div class="ui">
+                <div class="ui message small">
+                    <p>The internal logic of every component is separated into two pieces of code. One is the
+                        <b>logic</b> which implements the core functionality on a logical level without knowing hardware
+                        details.
+                        The second part is the
+                        <b>adapter</b>
+                        which implements the access to hardware or other services only. Both the logic and the adapter
+                        are a
+                        <b>Wirehome.Package</b>
+                        which
+                        must be downloaded first using the <b>Package Manager</b>.</p>
+                </div>
+                <div class="ui segment">
+                    <h4 class="ui header dividing">Logic package</h4>
+                    <app-package-selector [(id)]="configuration.logicId" [(version)]="configuration.logicVersion">
+                    </app-package-selector>
+                    <h4 class="ui header">Logic configuration</h4>
+                    <app-json-editor [(code)]="configuration.logicConfiguration"></app-json-editor>
+                </div>
+
+                <i class="fas fa-arrows-alt-v center icon"></i>
+
+                <div class="ui segment">
+                    <h4 class="ui header dividing">Adapter package</h4>
+                    <app-package-selector [(id)]="configuration.adapterId" [(version)]="configuration.adapterVersion">
+                    </app-package-selector>
+                    <h4 class="ui header">Adapter configuration</h4>
+                    <app-json-editor [(code)]="configuration.adapterConfiguration"></app-json-editor>
+                </div>
+            </div>
+        </div>
+
+        <div class="title">
+            <h3 class="ui dividing header"><i class="fas fa-wrench icon"></i>Settings</h3>
+        </div>
+        <div class="content extended-content">
+            shared editor for settings.
+        </div>
+
+        <div class="title">
+            <h3 class="ui dividing header"><i class="fas fa-chart-area icon"></i>History</h3>
+        </div>
+        <div class="content extended-content">
+            <div class="ui">
+                <div class="field">
+                    <div class="ui toggle checkbox" [(ngModel)]="excludeFromHistory">
+                        <input type="checkbox">
+                        <label>Exclude from history</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title">
+            <h3 class="ui dividing header"><i class="fas fa-envelope icon"></i>Messages</h3>
+        </div>
+        <div class="content extended-content">
+            <div class="ui">
+                <div class="ui message small">
+                    <p>This UI allows sending messages like commands to the current component for testing. The list and
+                        format of
+                        the supported
+                        messages is depending on the used logic and adapter of the component.</p>
+                </div>
+                <div class="ui">
+                    <h4 class="ui heading dividing">Message JSON</h4>
+                    <app-json-editor [(code)]="messageContent" #codeEditor></app-json-editor>
+                    <br />
+                    <button [class.loading]="isProcessingMessage==true" class="ui button teal"
+                        (click)="sendMessage()">Send</button>
+
+                    <div class="ui checkbox">
+                        <input type="checkbox" [(ngModel)]="returnUpdatedComponent">
+                        <label>Return updated component</label>
+                    </div>
+
+                    <h4 class="ui heading dividing">Response JSON</h4>
+                    <app-json-editor [(code)]="responseContent" #codeEditor></app-json-editor>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="title">
+            <h3 class="ui dividing header"><i class="fas fa-bullseye icon"></i>Actions</h3>
+        </div>
+        <div class="content extended-content">
+            <div class="ui">
+                <button class="ui button teal">Initialize</button>
+                <button class="ui button red">Delete</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<button [class.loading]="isSaving" class="ui button teal approve" (click)="save(true)">Save and initialize</button>
+<button class="ui button teal approve" (click)="save(false)">Save only</button>
+<button class="ui button deny" (click)="close()">Close</button>

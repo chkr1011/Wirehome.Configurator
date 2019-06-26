@@ -1,0 +1,17 @@
+.code {
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+.page {
+    padding: 30px;
+}
+
+.left-container {
+    float: left;
+}
+
+body {
+    background-color: #FCFCFC !important;
+}
+

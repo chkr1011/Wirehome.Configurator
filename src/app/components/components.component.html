@@ -1,0 +1,67 @@
+<div class="page">
+
+    <div class="components-list">
+
+        <h1 class="ui header">Components</h1>
+        <p class="segment ui">Components are real smart home devices like lamps, sockets, buttons, sensors etc.</p>
+
+        <button class="ui button teal" (click)="createNewComponent()"><i class="fas fa-plus icon"></i>Create
+            component</button>
+
+        <div class="ui">
+            <div class="ui dimmer" [class.active]="isLoading==true">
+                <div class="ui text loader">Loading</div>
+            </div>
+
+            <table class="ui celled table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>UID</th>
+                        <th>Caption</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of components">
+                        <td class="collapsing"><span [ngClass]="item.imageId"></span></td>
+                        <td class="code collapsing">{{item.uid}}</td>
+                        <td class="collapsing">{{item.caption}}</td>
+                        <td class="">{{item.description}}</td>
+                        <td class="code collapsing">
+                            <div class="ui buttons">
+                                <button class="ui button compact" (click)=showComponentEditor(item)>Open</button>
+                                <button class="ui red button compact">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="ui button">Refresh</button>
+        </div>
+    </div>
+
+    <div class="ui container left-container">
+        <app-component-detail class="component-editor" [component]="selectedComponent"
+            *ngIf="selectedComponent!=null" (closed)="onComponentEditorClosed($event)">
+        </app-component-detail>
+    </div>
+</div>
+
+
+
+<!-- <div class="ui modal abc">
+    <i class="close icon"></i>
+    <div class="header">Component '{{selectedComponent?.uid}}'
+    </div>
+    <div class="content" style="background-color: #FCFCFC !important;">
+        <app-component-detail [component]="selectedComponent">
+        </app-component-detail>
+    </div>
+    <div class="actions">
+        <button class="ui button teal approve">Save</button>
+        <button class="ui button deny">Close</button>
+    </div>
+</div> -->

@@ -1,0 +1,15 @@
+<div>
+    <div class="two fields">
+        <div class="field eleven wide">
+            <label>ID</label>
+            <input type="text" class="code" placeholder="wirehome.logical_devices.lamp" [(ngModel)]="id">
+        </div>
+        <div class="field five wide">
+            <label>Version</label>
+            <input type="text" class="code" placeholder="1.0.0" [(ngModel)]="version">
+        </div>
+    </div>
+
+    <button class="ui button teal fluid" (click)="pickPackage()">Pick from Package Manager</button>
+
+</div>
