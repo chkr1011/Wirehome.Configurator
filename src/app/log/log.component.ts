@@ -34,7 +34,7 @@ export class LogComponent implements OnInit {
         this.apiService.getLog(this.includeInformations, this.includeWarnings, this.includeErrors, this.takeCount).subscribe(items => {
             var entriesModel = new Array<LogEntryModel>();
 
-            for (let item of items as Array<Object>) {
+            for (let item of items) {
                 let entryModel = new LogEntryModel();
 
                 switch (item["level"]) {

@@ -30,7 +30,7 @@ export class JsonEditorComponent implements OnInit {
         return this.codeValue;
     }
 
-    @ViewChild('codeEditor') codeEditorElmRef: ElementRef;
+    @ViewChild('codeEditor', { static: true }) codeEditorElmRef: ElementRef;
     private codeEditor: ace.Ace.Editor;
 
     ngOnInit() {

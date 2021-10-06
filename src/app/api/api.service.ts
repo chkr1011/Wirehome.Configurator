@@ -51,22 +51,22 @@ export class ApiService {
         return this.http.post(`${this.baseUrl}v1/global_variables/${uid}`, value, { headers: headers }).pipe(tap(r => this.logResponse(r)));
     }
 
-    getLog(includeInformations: boolean, includeWarnings: boolean, includeErrors: boolean, takeCount: number): Observable<object> {
+    getLog(includeInformations: boolean, includeWarnings: boolean, includeErrors: boolean, takeCount: number): Observable<object[]> {
         let parameters = new HttpParams()
             .set('includeInformations', includeInformations ? 'true' : 'false')
             .set('includeWarnings', includeWarnings ? 'true' : 'false')
             .set('includeErrors', includeErrors ? 'true' : 'false')
             .set('takeCount', takeCount.toString());
 
-        return this.http.get(`${this.baseUrl}v1/log`, { params: parameters }).pipe(tap(r => this.logResponse(r)));
+        return this.http.get<object[]>(`${this.baseUrl}v1/log`, { params: parameters }).pipe(tap(r => this.logResponse(r)));
     }
 
     deleteLog() {
         return this.http.delete(`${this.baseUrl}v1/log`).pipe(tap(r => this.logResponse(r)));
     }
 
-    getComponents(): Observable<object> {
-        return this.http.get(`${this.baseUrl}v1/components`).pipe(tap(r => this.logResponse(r)));
+    getComponents(): Observable<object[]> {
+        return this.http.get<object[]>(`${this.baseUrl}v1/components`).pipe(tap(r => this.logResponse(r)));
     }
 
     getComponentConfiguration(uid: string): Observable<object> {

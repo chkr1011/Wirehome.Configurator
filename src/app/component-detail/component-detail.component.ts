@@ -12,7 +12,9 @@ import { ComponentUpdater } from './services/component-updater';
 
 export class ComponentDetailComponent implements OnInit {
 
-    constructor(private apiService: ApiService, private componentUpdater: ComponentUpdater) { }
+    constructor(private apiService: ApiService) {
+
+     }
 
     @Input()
     set component(value: ComponentModel) {
@@ -55,7 +57,9 @@ export class ComponentDetailComponent implements OnInit {
     save(initialize: boolean) {
         this.isSaving = true;
 
-        this.componentUpdater.updateComponent(this.configuration).subscribe(_ => {
+        var componentUpdater = new ComponentUpdater(this.apiService);
+
+        componentUpdater.updateComponent(this.configuration).subscribe(_ => {
             this.closed.emit(true);
             this.isSaving = false;
         });        
