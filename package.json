@@ -23,7 +23,7 @@
     "@types/jquery": "^3.3.29",
     "ace-builds": "^1.4.3",
     "core-js": "^2.5.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ng2-ace-editor": "^0.3.9",
     "rxjs": "~6.5.2",
     "semantic-ui": "^2.4.2",
